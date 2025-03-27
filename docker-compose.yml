@@ -1,0 +1,8 @@
+name: projeto-stbp
+
+services:
+  redis:
+    image: redis
+    container_name: redis-server
+    ports:
+      - "6379:6379"

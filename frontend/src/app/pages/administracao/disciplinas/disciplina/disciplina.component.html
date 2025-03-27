@@ -1,0 +1,97 @@
+<main>
+  <div class="flex flex-row w-full">
+    <app-sidenav />
+    <div class="content">
+      <mat-card class="max-w-3xl mx-auto">
+        <mat-card-title class="text-2xl font-bold text-center">Cadastro de Disciplina</mat-card-title>
+        <mat-card-content>
+          <form [formGroup]="form" class="space-y-6 mt-6">
+            <!-- Campo Código -->
+            <mat-form-field  class="w-full">
+              <mat-label>Código</mat-label>
+              <input matInput formControlName="codigo" placeholder="Digite o código" />
+              @if(form.get('codigo')?.hasError('required')) {
+                <mat-error>
+                  Campo obrigatório
+                </mat-error>
+              }
+            </mat-form-field>
+    
+            <!-- Campo Nome -->
+            <mat-form-field class="w-full">
+              <mat-label>Nome</mat-label>
+              <input matInput formControlName="nome" placeholder="Digite o nome" />
+              @if(form.get('nome')?.hasError('required')) {
+                <mat-error>
+                  Campo obrigatório
+                </mat-error>
+              }
+            </mat-form-field>
+    
+            <!-- Campo Curso (Select) -->
+            <mat-form-field class="w-full">
+              <mat-label>Curso</mat-label>
+              <mat-select formControlName="curso">
+                @for (curso of cursoOptions; track curso) {
+                  <mat-option [value]="curso.value">
+                    {{ curso.label }}
+                  </mat-option>
+                }
+              </mat-select>
+              @if(form.get('curso')?.hasError('required')) {
+                <mat-error>
+                  Campo obrigatório
+                </mat-error>
+              }
+            </mat-form-field>
+    
+            <!-- Campo Carga Horária -->
+            <mat-form-field  class="w-full">
+              <mat-label>Carga Horária</mat-label>
+              <input matInput formControlName="cargaHoraria" placeholder="Digite a carga horária" type="number" />
+              @if(form.get('cargaHoraria')?.hasError('required')) {
+                <mat-error>
+                  Campo obrigatório
+                </mat-error>
+              }
+            </mat-form-field>
+    
+            <!-- Campo Tipo (Select) -->
+            <mat-form-field class="w-full">
+              <mat-label>Tipo</mat-label>
+              <mat-select formControlName="tipo">
+                @for (tipo of tipoOptions; track tipo) {
+                  <mat-option [value]="tipo.value">
+                    {{ tipo.label }}
+                  </mat-option>
+                }
+              </mat-select>
+              @if(form.get('tipo')?.hasError('required')) {
+                <mat-error>
+                  Campo obrigatório
+                </mat-error>
+              }
+            </mat-form-field>
+    
+            <!-- Botões de ação -->
+            <div class="flex justify-end space-x-4">
+              <button mat-button type="button" (click)="cancelar()" class="px-4 py-2">
+                Cancelar
+              </button>
+              <button
+                mat-raised-button
+                color="primary"
+                type="button"
+                (click)="salvar()"
+                [disabled]="!form.valid || !permiteSalvar"
+                class="px-4 py-2"
+              >
+                Salvar
+              </button>
+            </div>
+          </form>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</main>

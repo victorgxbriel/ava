@@ -1,0 +1,168 @@
+<main>
+  <div class="flex flex-row w-full">
+    <app-sidenav></app-sidenav>
+    <!-- Card com Tabela e Paginação integradas -->
+    <div class="content">
+      <mat-card class="w-full max-w-6xl mx-auto card-classe-summary">
+        <header class="flex flex-col md:flex-row md:items-center justify-between px-4 py-3 border-b border-gray-200">
+          <div>
+            <h1 class="text-3xl font-bold">Classes</h1>
+            <p class="text-3xs text-gray-600">Manter as classes</p>
+          </div>
+          <div class="mt-3 md:mt-0">
+            <button mat-raised-button color="primary" (click)="editarNovo()" class="px-4 py-2">
+              Cadastrar
+            </button>
+          </div>
+        </header>
+        <!-- Tabela com dados -->
+        <div class="overflow-x-auto">
+          <table mat-table [dataSource]="dados" matSort (matSortChange)="onChangeSort($event)" class="min-w-full w-full">
+            
+            <!-- Coluna de Índice -->
+            <ng-container matColumnDef="index">
+              <th mat-header-cell *matHeaderCellDef class="px-6 py-3">Nº</th>
+              <td mat-cell *matCellDef="let element; let i = index" class="px-6 py-4">
+                {{ i + 1 + pagina }}
+              </td>
+            </ng-container>
+  
+            <!-- Coluna Período -->
+            <ng-container matColumnDef="periodo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-6 py-3">Período</th>
+              <td mat-cell *matCellDef="let element" class="px-6 py-4">
+                {{ element.periodo }}
+              </td>
+            </ng-container>
+  
+            <!-- Coluna Código -->
+            <ng-container matColumnDef="codigo">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-6 py-3">Código</th>
+              <td mat-cell *matCellDef="let element" class="px-6 py-4">
+                {{ element.codigo }}
+              </td>
+            </ng-container>
+  
+            <!-- Coluna Nome Disciplina -->
+            <ng-container matColumnDef="nomeDisciplina">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-6 py-3">Disciplina</th>
+              <td mat-cell *matCellDef="let element" class="px-6 py-4">
+                {{ element.nomeDisciplina }}
+              </td>
+            </ng-container>
+  
+            <!-- Coluna Nome Docente -->
+            <ng-container matColumnDef="nomeDocente">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-6 py-3">Docente</th>
+                <td mat-cell *matCellDef="let element" class="px-6 py-4">
+                  {{ element.nomeDocente }}
+                </td>
+              </ng-container>
+
+            <!-- Coluna Situação -->
+            <ng-container matColumnDef="situacao">
+              <th mat-header-cell *matHeaderCellDef mat-sort-header class="px-6 py-3">Situação</th>
+              <td mat-cell *matCellDef="let element" class="px-6 py-4">
+                <span [ngClass]="{
+                    'bg-green-100 text-green-800': element.situacao === true,
+                    'bg-red-100 text-red-800': element.situacao === false
+                  }"
+                  class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+                  {{ getSituacaoLabel(element.situacao) }}
+                </span>
+              </td>
+            </ng-container>
+  
+            <!-- Coluna Ações -->
+            <ng-container matColumnDef="acoes">
+              <th mat-header-cell *matHeaderCellDef class="px-6 py-3 text-center">Ações</th>
+              <td mat-cell *matCellDef="let element" class="px-6 py-4 text-center">
+                <div class="flex flex-row flex-nowrap items-center justify-center space-x-2">
+                  <button mat-icon-button color="primary" (click)="editarNovo(element.id)">
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                  <button mat-icon-button color="accent" (click)="detalhar(element.id)">
+                    <mat-icon>visibility</mat-icon>
+                  </button>
+                  <button mat-icon-button color="warn" (click)="delete(element)">
+                    <mat-icon>delete</mat-icon>
+                  </button>
+                </div>
+              </td>
+            </ng-container>
+  
+            <!-- Colunas de Filtros -->
+            <ng-container matColumnDef="empty">
+              <th mat-header-cell *matHeaderCellDef class="px-6 py-2"></th>
+            </ng-container>
+            <ng-container matColumnDef="periodoFilter">
+              <th mat-header-cell *matHeaderCellDef class="px-6 py-2">
+                <mat-form-field class="w-full" appearance="outline">
+                  <input matInput placeholder="Período" [(ngModel)]="filtro.periodo" (blur)="onChangeFiltro()">
+                </mat-form-field>
+              </th>
+            </ng-container>
+            <ng-container matColumnDef="codigoFilter">
+              <th mat-header-cell *matHeaderCellDef class="px-6 py-2">
+                <mat-form-field class="w-full" appearance="outline">
+                  <input matInput placeholder="Código" [(ngModel)]="filtro.codigo" (blur)="onChangeFiltro()">
+                </mat-form-field>
+              </th>
+            </ng-container>
+            <ng-container matColumnDef="nomeDisciplinaFilter">
+              <th mat-header-cell *matHeaderCellDef class="px-6 py-2">
+                <mat-form-field class="w-full" appearance="outline">
+                  <input matInput placeholder="Disciplina" [(ngModel)]="filtro.nomeDisciplina" (blur)="onChangeFiltro()">
+                </mat-form-field>
+              </th>
+            </ng-container>
+            <ng-container matColumnDef="nomeDocenteFilter">
+                <th mat-header-cell *matHeaderCellDef class="px-6 py-2">
+                  <mat-form-field class="w-full" appearance="outline">
+                    <input matInput placeholder="Docente" [(ngModel)]="filtro.nomeDocente" (blur)="onChangeFiltro()">
+                  </mat-form-field>
+                </th>
+              </ng-container>
+            <ng-container matColumnDef="situacaoFilter">
+              <th mat-header-cell *matHeaderCellDef class="px-6 py-2">
+                <mat-form-field class="w-full" appearance="outline">
+                  <mat-select placeholder="Situação" [(ngModel)]="filtro.situacao" (selectionChange)="onChangeFiltro()">
+                    <mat-option *ngFor="let option of situacaoOptions" [value]="option.value">
+                      {{ option.label }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </th>
+            </ng-container>
+  
+            <!-- Linhas de Cabeçalho e Filtros -->
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-header-row *matHeaderRowDef="filterColumns"></tr>
+  
+            <!-- Linhas de Dados -->
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+            <!-- Mensagem de Tabela Vazia -->
+            <tr *ngIf="dados?.length === 0">
+              <td [attr.colspan]="displayedColumns.length" class="text-center py-4">
+                <span *ngIf="!hasFiltro">Nenhuma classe cadastrada.</span>
+                <span *ngIf="hasFiltro">Nenhuma classe foi encontrada com o filtro informado.</span>
+              </td>
+            </tr>
+          </table>
+        </div>
+  
+        <!-- Paginação Integrada -->
+        <div class="px-4 py-2 border-t border-gray-200">
+          <mat-paginator
+            [pageSize]="registrosPorPagina"
+            [pageIndex]="pagina"
+            [length]="totalRegistros"
+            [pageSizeOptions]="[10, 25, 50, 100]"
+            (page)="onPageChange($event)">
+          </mat-paginator>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+</main>

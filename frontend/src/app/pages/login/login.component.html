@@ -1,0 +1,48 @@
+<main>
+    <app-navbar class="navbar" />
+    <div class="content">
+        <mat-card class="w-full max-w-md flex flex-col justify-center items-center p-6 rounded-lg shadow-lg card-classe-summary">
+            <mat-card-title class="w-full text-xl font-semibold text-center mb-5">Login</mat-card-title>
+            <mat-card-content class="w-full mt-4" >
+                <form [formGroup]="loginForm" class="flex flex-col gap-4">
+
+                    <div>
+                        <mat-form-field appearance="outline" class="w-full">
+                            <input matInput placeholder="E-mail" formControlName="username" (keyup)="verificaEmail()" />
+                            @if (loginForm.get('username')?.hasError('required')) {
+                                <mat-error>Campo obrigatório</mat-error>
+                            }
+                            @if(loginForm.get('username')?.hasError('email')) {
+                                <mat-error>Formato de e-mail invalido</mat-error>
+                            }
+                        </mat-form-field>
+
+                        <mat-form-field appearance="outline" class="w-full">
+                            <input [type]="hide ? 'password' : 'text'" matInput placeholder="Senha" formControlName="password"/>
+                            <button mat-icon-button matSuffix (click)="hide = !hide">
+                                <mat-icon>{{ hide ? 'visibility_off' : 'visibility' }}</mat-icon>
+                            </button>
+                            @if (loginForm.get('password')?.hasError('required')) {
+                                <mat-error>Campo obrigatório</mat-error>
+                            }
+                        </mat-form-field>
+
+                        <div>
+                            <a class="text-blue-500 text-sm mt-2 hover:text-blue-700 hover:underline focus:outline-none" routerLink="/recuperar-senha">
+                                Esqueceu sua senha?
+                            </a >
+                        </div>
+                        <a class="text-blue-500 text-sm mt-2 hover:text-blue-700 hover:underline focus:outline-none" routerLink="/registro">
+                            Primeiro acesso? Realize o seu registro
+                        </a>                    
+                    </div>
+
+                    <mat-card-actions class="w-full flex justify-end">
+                        <button mat-flat-button >Entrar</button>
+                    </mat-card-actions>
+                </form>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <app-footer class="footer" />
+</main>

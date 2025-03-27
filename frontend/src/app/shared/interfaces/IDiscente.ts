@@ -1,0 +1,21 @@
+export interface IDiscente {
+    polo: number,
+    igreja: number,
+    turma: number,
+    matricula: number,
+    nome: string,
+    cpf: string,
+    email:string,
+    telefone: string,
+    situacao: string,
+    sexo: string,
+    naturalidade: string,
+    orgaoEmissor: string,
+    dataNascimento: string,
+    filiacao: string,
+    estadoCivil: string,
+    endereco: string,
+    escolaridade: string,
+    dataIngresso: string,
+    active: boolean
+}

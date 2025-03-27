@@ -1,0 +1,167 @@
+<mat-card class="w-full max-w-md flex flex-col justify-center items-center p-6 card-classe-summary">
+    <mat-card-title class="text-xl font-semibold mb-4">Matrícula</mat-card-title>
+    <mat-card-content class="w-full max-w-lg">
+      <form [formGroup]="matriculaForm" class="flex flex-col gap-4">
+
+        <mat-stepper linear #stepper>
+
+          <mat-step>
+            <ng-template matStepLabel>Polo</ng-template>
+              <mat-label>Em qual polo/extensão você se matriculou</mat-label>
+              <mat-radio-group formControlName="polo" (change)="checkCustomPolo()">
+                @for (polo of polos; track $index) {
+                  <mat-radio-button [value]="polo.id" class="block w-full">
+                    {{polo.nome}}
+                  </mat-radio-button>
+                }
+              </mat-radio-group>
+              @if (mostrarOutrPolo) {
+                <mat-form-field class="w-full">
+                  <mat-label>Informe o polo</mat-label>
+                  <input matInput formControlName="polo" />
+                </mat-form-field>
+              }
+              
+              <div class="flex justify-end">
+                <button mat-button matStepperNext>Próximo</button>
+              </div>
+          </mat-step>
+
+          <mat-step class="w-full">
+            <ng-template matStepLabel class="hidden md:flex">
+              <span matTooltip="Dados Pessoais" matTooltipPosition="above" >Dados Pessoais</span>
+            </ng-template>
+            <mat-form-field class="w-full">
+              <mat-label>Nome completo</mat-label>
+              <input matInput placeholder="Nome" formControlName="nome" required />
+              @if (matriculaForm.get('nome')?.hasError('required')) {
+                <mat-error>O nome é obrigatório</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>CPF</mat-label>
+              <input matInput placeholder="000.000.000-00" formControlName="cpf" 
+                      (input)="formatCPF($event)" maxlength="14"/>
+              @if (matriculaForm.get('cpf')?.hasError('required')) {
+                <mat-error>O CPF é obrigatório</mat-error>
+              }
+              @if (matriculaForm.get('cpf')?.hasError('pattern')) {
+                <mat-error>CPF incompleto</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>Telefone</mat-label>
+              <input matInput placeholder="(00) 00000-0000" formControlName="telefone" 
+                      (input)="formatTelefone($event)" maxlength="14"/>
+              @if (matriculaForm.get('telefone')?.hasError('required')) {
+                <mat-error>O telefone é obrigatório</mat-error>
+              }
+              @if (matriculaForm.get('telefone')?.hasError('pattern')) {
+                <mat-error>Telefone incompleto</mat-error>
+              }
+            </mat-form-field>
+
+            <mat-form-field class="w-full">
+              <mat-label>E-mail</mat-label>
+              <input matInput placeholder="exemplo@email.com" formControlName="email" />
+              @if (matriculaForm.get('email')?.hasError('required')) {
+                <mat-error>O e-mail é obrigatório</mat-error>
+              }
+              @if (matriculaForm.get('email')?.hasError('email')) {
+                <mat-error>Email invalido</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>Escolaridade</mat-label>
+              <mat-select formControlName="escolaridade" required>
+                <mat-option>--</mat-option>
+                @for (escolaridade of escolaridades; track $index) {
+                  <mat-option [value]="escolaridade">{{ escolaridade }}</mat-option>
+                }
+              </mat-select>
+              @if (matriculaForm.get('escolaridade')?.hasError('required')) {
+                <mat-error>Escolha uma opção</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>Estado Civil</mat-label>
+              <mat-select formControlName="estadoCivil" required>
+                <mat-option>--</mat-option>
+                @for (estadoCivil of estadosCivis; track $index) {
+                  <mat-option [value]="estadoCivil">{{ estadoCivil }}</mat-option>
+                }
+              </mat-select>
+              @if (matriculaForm.get('estadoCivil')?.hasError('required')) {
+                <mat-error>Informe seu estado civil</mat-error>
+              }
+            </mat-form-field>
+      
+            <div class="flex justify-between">
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-button matStepperNext>Próximo</button>
+            </div>
+          </mat-step>
+
+          <mat-step>
+            <ng-template matStepLabel>
+              <span  matTooltip="Informações da igreja" matTooltipPosition="above">Informações da Igreja</span>
+            </ng-template>
+            <mat-form-field class="w-full">
+              <mat-label>Nome da Igreja</mat-label>
+              <input matInput formControlName="nomeIgreja" />
+              @if (matriculaForm.get('nomeIgreja')?.hasError('required')) {
+                <mat-error>O nome da igreja é obrigatório</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>Cidade da Igreja</mat-label>
+              <input matInput formControlName="cidadeIgreja" />
+              @if (matriculaForm.get('cidadeIgreja')?.hasError('required')) {
+                <mat-error>A cidade da igreja é obrigatória</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>Estado da Igreja</mat-label>
+              <input matInput formControlName="estadoIgreja" />
+              @if (matriculaForm.get('estadoIgreja')?.hasError('required')) {
+                <mat-error>O estado da igreja é obrigatório</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>Nome do Pastor</mat-label>
+              <input matInput formControlName="nomePastor" />
+              @if (matriculaForm.get('nomePastor')?.hasError('required')) {
+                <mat-error>O nome do pastor é obrigatório</mat-error>
+              }
+            </mat-form-field>
+      
+            <mat-form-field class="w-full">
+              <mat-label>Telefone do Pastor</mat-label>
+              <input matInput formControlName="telefonePastor"  placeholder="(00) 00000-0000" (input)="formatTelefonePastor($event)" 
+                      maxlength="14"/>
+              @if (matriculaForm.get('telefonePastor')?.hasError('required')) {
+                <mat-error>O telefone do pastor é obrigatório</mat-error>
+              }
+              @if (matriculaForm.get('telefonePastor')?.hasError('pattern')) {
+                <mat-error>Telefone incompleto</mat-error>
+              }
+            </mat-form-field>
+            
+            <div class="flex justify-between">
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-raised-button color="primary" [disabled]="matriculaForm.invalid" (click)="openDialog()">
+                Enviar
+              </button>
+            </div>
+          </mat-step>
+        </mat-stepper>
+      </form>
+    </mat-card-content>
+  </mat-card>

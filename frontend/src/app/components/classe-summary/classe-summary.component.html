@@ -1,0 +1,42 @@
+<mat-card class=" max-w-sm mx-auto shadow-lg">
+    <mat-card-header class="px-4 py-2 border-b border-gray-200">
+        <mat-card-title class="text-xl font-semibold">
+            <mat-icon class="mr-2" style="color: #808080;">library_books</mat-icon>
+            {{disciplina}}
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="p-4">
+        <div class="flex flex-col space-y-4">
+            <div>
+                <p class="text-sm text-gray-500">Nota</p>
+                <p class="text-3xl font-bold">{{nota}}</p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">Situação</p>
+                <span 
+                    [ngClass]="{
+                        'bg-blue-100 text-blue-800': situacao === 'Cursando',
+                        'bg-yellow-100 text-yellow-800': situacao === 'Trancado',
+                        'bg-red-100 text-red-800': situacao === 'Reprovado',
+                        'bg-green-100 text-green-800': situacao === 'Aprovado'
+                    }"
+                    class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
+                    <ng-container *ngIf="situacao === 'Cursando'">
+                        <mat-icon class="mr-2">school</mat-icon>
+                      </ng-container>
+                      <ng-container *ngIf="situacao === 'Trancado'">
+                        <mat-icon class="mr-2">lock</mat-icon>
+                      </ng-container>
+                      <ng-container *ngIf="situacao === 'Reprovado'">
+                        <mat-icon class="mr-2">cancel</mat-icon>
+                      </ng-container>
+                      <ng-container *ngIf="situacao === 'Aprovado'">
+                        <mat-icon class="mr-2">check_circle</mat-icon>
+                      </ng-container>
+                    {{ situacao }}
+                </span>
+            </div>
+        </div>
+    </mat-card-content>
+</mat-card>

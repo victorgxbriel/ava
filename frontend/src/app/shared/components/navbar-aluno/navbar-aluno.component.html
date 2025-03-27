@@ -1,0 +1,38 @@
+<header class="bg-[var(--color-victoria-800)] text-white p-4 shadow-md">
+    <div class="w-full mx-auto flex items-center">
+
+      <div class="flex flex-row items-center w-60">
+        <a href="#" class="flex items-center">
+          <img src="image-white.png" width="50px" class="cursor-pointer"/>
+          <span class="text-lg font-semibold">ﾠSeminário</span>
+        </a>
+      </div>
+
+      <div class="flex flex-row items-center justify-start w-full space-x-4">
+        <mat-icon>school</mat-icon>
+        <p>Ambiente de aprendizagem</p>
+      </div>
+
+      <div class="flex flex-row items-center justify-center w-80 space-x-4" [matMenuTriggerFor]="menuPerfil">
+        <a class="flex items-center space-x-1">
+          <mat-icon class="align-middle">help</mat-icon>
+          <mat-icon class="align-middle">notifications</mat-icon>
+          {{ nome }}
+          <mat-icon class="align-middle">keyboard_arrow_down</mat-icon>
+
+        </a>
+        <mat-icon>person</mat-icon>
+      </div>
+      
+    </div>
+  
+  </header>
+
+  <!-- Definição do submenu para Emissão -->
+<mat-menu #menuPerfil="matMenu">
+    <button mat-menu-item (click)="logout()">
+      <mat-icon>logout</mat-icon>
+      <span>Sair</span>
+    </button>
+  </mat-menu>
+  

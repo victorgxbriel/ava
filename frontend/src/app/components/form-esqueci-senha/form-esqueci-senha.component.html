@@ -1,0 +1,74 @@
+<mat-card class="max-w-md justify-center items-center p-4">
+    <mat-card-title class="w-full text-center p-4">Recuperar senha</mat-card-title>
+    <mat-card-content>
+      <mat-stepper linear #stepper>
+  
+        <!-- Passo 1: E-mail -->
+        <mat-step [stepControl]="emailForm">
+          <ng-template matStepLabel>E-mail</ng-template>
+          <form [formGroup]="emailForm">
+            <mat-form-field class="w-full">
+              <mat-label>E-mail</mat-label>
+              <input matInput formControlName="email" />
+              @if (emailForm.get('email')?.hasError('required')) {
+                <mat-error>O e-mail é obrigatório</mat-error>
+              }
+              @if (emailForm.get('email')?.hasError('email')) {
+                <mat-error>Email invalido</mat-error>
+              }
+            </mat-form-field>
+            <mat-form-field class="w-full">
+              <mat-label>Confirmar E-mail</mat-label>
+              <input matInput formControlName="confirmarEmail"/>
+              @if (emailForm.get('confirmarEmail')?.hasError('required')) {
+                <mat-error>O e-mail é obrigatório</mat-error>
+              }
+              @if (emailForm.get('confirmarEmail')?.hasError('email')) {
+                <mat-error>Email invalido</mat-error>
+              }
+              @if(emailForm.hasError('emailsMismatch')){
+                <mat-error>E-mail diferente do informado primeiramente</mat-error>
+              }
+            </mat-form-field>
+            <div class="flex justify-end">
+              <button mat-button matStepperNext (click)="openAvisoEmail()">Próximo</button>
+            </div>
+          </form>
+        </mat-step>
+  
+        <!-- Passo 2: Código -->
+        <mat-step>
+          <ng-template matStepLabel>Código</ng-template>
+          <mat-form-field>
+            <mat-label>Código</mat-label>
+            <input matInput [formControl]="codigo" />
+          </mat-form-field>
+          <div class="flex justify-between">
+            <button mat-button matStepperPrevious>Voltar</button>
+            <button mat-button matStepperNext>Próximo</button>
+          </div>
+        </mat-step>
+  
+        <!-- Passo 3: Nova senha -->
+        <mat-step [stepControl]="senhaForm">
+          <ng-template matStepLabel>Nova senha</ng-template>
+          <form [formGroup]="senhaForm">
+            <mat-form-field class="w-full">
+              <mat-label>Nova senha</mat-label>
+              <input matInput formControlName="senha" type="password" />
+            </mat-form-field>
+            <mat-form-field class="w-full">
+              <mat-label>Confirmar senha</mat-label>
+              <input matInput formControlName="confirmarSenha" type="password" />
+            </mat-form-field>
+            <div class="flex justify-between">
+              <button mat-button matStepperPrevious>Voltar</button>
+              <button mat-raised-button color="primary">Enviar</button>
+            </div>
+          </form>
+        </mat-step>
+  
+      </mat-stepper>
+    </mat-card-content>
+  </mat-card>
+  

@@ -1,0 +1,31 @@
+<header class="bg-[var(--color-victoria-800)] text-white p-4 shadow-md">
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="flex flex-row items-center">
+        <a href="#" class="flex items-center">
+          <img src="image-white.png" width="50px" class="cursor-pointer"/>
+          <span class="text-lg font-semibold">ﾠSeminário</span>
+        </a>
+      </div>
+  
+      <button class="md:hidden" (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+  
+      <nav class="hidden md:flex gap-6">
+        <a mat-flat-button class="custom-button" (click)="goTo('about')">Sobre</a>
+        <a mat-flat-button class="custom-button" href="https://wa.me/5584999864020">Contato</a>
+        <a mat-flat-button class="custom-button" (click)="goTo('login')">Entrar</a>
+
+      </nav>
+    </div>
+  
+    <!-- Mobile Menu -->
+     @if (isMenuOpen) {
+        <div class="md:hidden flex flex-col gap-2 mt-2 bg-blue-700 p-4">
+          <a mat-flat-button (click)="goTo('')">Home</a>
+          <a mat-flat-button (click)="goTo('about')">Sobre</a>
+          <a mat-flat-button href="https://wa.me/5584999864020" class="text-blue-500">Contato</a>
+        </div>
+     }
+  </header>
+  

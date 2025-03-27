@@ -1,0 +1,87 @@
+<main>
+    <div class="flex flex-row w-full">
+      <app-sidenav />
+      <div class="content">
+        <mat-card class="max-w-3xl mx-auto">
+          <mat-card-title class="text-2xl font-bold text-center">Cadastro de Classes</mat-card-title>
+          <mat-card-content>
+            <form [formGroup]="form" class="space-y-6 mt-6">
+              <!-- Campo Código -->
+              <mat-form-field  class="w-full">
+                <mat-label>Código</mat-label>
+                <input matInput formControlName="codigo" placeholder="Digite o código" />
+                @if(form.get('codigo')?.hasError('required')) {
+                  <mat-error>
+                    Campo obrigatório
+                  </mat-error>
+                }
+              </mat-form-field>
+      
+              <!-- Campo Periodo -->
+              <mat-form-field class="w-full">
+                <mat-label>Periodo</mat-label>
+                <input matInput formControlName="periodo" placeholder="Digite o periodo" />
+                @if(form.get('periodo')?.hasError('required')) {
+                  <mat-error>
+                    Campo obrigatório
+                  </mat-error>
+                }
+              </mat-form-field>
+      
+              <!-- Campo Disciplina (Select) -->
+              <mat-form-field class="w-full">
+                <mat-label>Disciplina</mat-label>
+                <mat-select formControlName="disciplina">
+                  @for (disciplina of disciplinaOptions; track disciplina) {
+                    <mat-option [value]="disciplina.value">
+                      {{ disciplina.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+                @if(form.get('disciplina')?.hasError('required')) {
+                  <mat-error>
+                    Campo obrigatório
+                  </mat-error>
+                }
+            </mat-form-field>
+      
+              <!-- Campo Docente (Select) -->
+              <mat-form-field class="w-full">
+                <mat-label>Docente</mat-label>
+                <mat-select formControlName="docente">
+                  @for (docente of docenteOptions; track docente) {
+                    <mat-option [value]="docente.value">
+                      {{ docente.label }}
+                    </mat-option>
+                  }
+                </mat-select>
+                @if(form.get('tipo')?.hasError('required')) {
+                  <mat-error>
+                    Campo obrigatório
+                  </mat-error>
+                }
+              </mat-form-field>
+      
+              <!-- Botões de ação -->
+              <div class="flex justify-end space-x-4">
+                <button mat-button type="button" (click)="cancelar()" class="px-4 py-2">
+                  Cancelar
+                </button>
+                <button
+                  mat-raised-button
+                  color="primary"
+                  type="button"
+                  (click)="salvar()"
+                  [disabled]="!form.valid || !permiteSalvar"
+                  class="px-4 py-2"
+                >
+                  Salvar
+                </button>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </main>
+  

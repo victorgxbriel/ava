@@ -1,0 +1,25 @@
+<div [ngClass]="isExpanded ? 'w-48' : 'w-16'" class="min-h-full h-screen bg-[var(--color-victoria-800)] text-white transition-all duration-300">
+    <!-- Botão para expandir/recolher -->
+    <div class="flex justify-between p-2">
+      <a href="#" class="flex items-center">
+        <img src="image-white.png" width="50px" class="cursor-pointer" />
+      </a>
+      <button (click)="toggle()" class="text-white focus:outline-none">
+        <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </button>
+    </div>
+    <!-- Lista de itens -->
+    <ul class="mt-4">
+        @for (item of menuItems; track item) {
+            <li class="flex items-center p-2 hover:bg-gray-700 cursor-pointer" [routerLink]="item.link">
+                <div class="flex-shrink-0 w-8 flex items-center justify-center">
+                    <mat-icon [matTooltip]="item.label" matTooltipPosition="right">{{ item.icon }}</mat-icon>
+                  </div>
+                <!-- Exibe a label somente quando expandido -->
+                 @if (isExpanded) {
+                    <span class="ml-2 transition-all duration-300">{{ item.label }}</span>
+                 }
+            </li>
+        }
+    </ul>
+</div>

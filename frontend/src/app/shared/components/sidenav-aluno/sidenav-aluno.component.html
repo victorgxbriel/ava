@@ -1,0 +1,77 @@
+<div [ngClass]="isExpanded ? 'w-48' : 'w-16'" class="min-h-screen flex-1 bg-white text-[var(--color-violet-800)] transition-all duration-300">
+    <!-- Botão para expandir/recolher -->
+    <div class="flex justify-end items-center p-2">
+      <button (click)="toggle()" class="text-[var(--color-violet-800)] focus:outline-none">
+        <mat-icon>{{ isExpanded ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+      </button>
+    </div>
+    <!-- Lista de itens -->
+    <ul class="mt-4">
+        <li class="flex items-center p-2 hover:bg-[var(--color-victoria-400)] cursor-pointer" routerLink="/aluno" routerLinkActive="bg-[var(--color-victoria-400)]"
+        [routerLinkActiveOptions]="{ exact: true }">
+          <div class="flex-shrink-0 w-8 flex items-center justify-center">
+              <mat-icon matTooltip="Inicio" matTooltipPosition="right">home</mat-icon>
+            </div>
+          <!-- Exibe a label somente quando expandido -->
+          @if (isExpanded) {
+              <span class="ml-2 transition-all duration-300">Inicio</span>
+          }
+          
+        </li>
+        <li class="flex items-center p-2  hover:bg-[var(--color-victoria-400)] cursor-pointer" routerLink="/aluno/aula" routerLinkActive="bg-[var(--color-victoria-400)]"
+        [routerLinkActiveOptions]="{ exact: true }">
+            <div class="flex-shrink-0 w-8 flex items-center justify-center">
+                <mat-icon matTooltip="Aulas" matTooltipPosition="right">class</mat-icon>
+              </div>
+            <!-- Exibe a label somente quando expandido -->
+             @if (isExpanded) {
+                <span class="ml-2 transition-all duration-300">Aulas</span>
+             }
+        </li>
+        <li class="flex items-center p-2  hover:bg-[var(--color-victoria-400)] cursor-pointer" routerLink="/aluno/curso" routerLinkActive="bg-[var(--color-victoria-400)]"
+        [routerLinkActiveOptions]="{ exact: true }">
+            <div class="flex-shrink-0 w-8 flex items-center justify-center">
+                <mat-icon matTooltip="Cursos" matTooltipPosition="right">menu_book</mat-icon>
+              </div>
+            <!-- Exibe a label somente quando expandido -->
+             @if (isExpanded) {
+                <span class="ml-2 transition-all duration-300">Cursos</span>
+             }
+        </li>
+        <li class="flex items-center p-2 hover:bg-[var(--color-victoria-400)] cursor-pointer" routerLink="/aluno/classe" routerLinkActive="bg-[var(--color-victoria-400)]"
+        [routerLinkActiveOptions]="{ exact: true }">
+            <div class="flex-shrink-0 w-8 flex items-center justify-center">
+                <mat-icon matTooltip="Classes" matTooltipPosition="right">library_books</mat-icon>
+              </div>
+            <!-- Exibe a label somente quando expandido -->
+             @if (isExpanded) {
+                <span class="ml-2 transition-all duration-300">Classes</span>
+             }
+        </li>
+        <li class="flex items-center p-2  hover:bg-[var(--color-victoria-400)] cursor-pointer" [matMenuTriggerFor]="menuEmissao">
+          <div class="flex-shrink-0 w-8 flex items-center justify-center">
+              <mat-icon matTooltip="Documentos" matTooltipPosition="right">folder</mat-icon>
+            </div>
+          <!-- Exibe a label somente quando expandido -->
+           @if (isExpanded) {
+              <span class="ml-2 transition-all duration-300">Documentos</span>
+           }
+      </li>
+    </ul>
+</div>
+
+<!-- Definição do submenu para Emissão -->
+<mat-menu #menuEmissao="matMenu">
+    <button mat-menu-item (click)="downloadHistorico()" disabled="true">
+      <mat-icon>history</mat-icon>
+      <span>Histórico</span>
+    </button>
+    <button mat-menu-item (click)="downloadDeclaracao()" disabled="true">
+      <mat-icon>description</mat-icon>
+      <span>Declaração de vínculo</span>
+    </button>
+    <button mat-menu-item (click)="downloadMatricula()" disabled="true">
+      <mat-icon>assignment</mat-icon>
+      <span>Matrícula</span>
+    </button>
+  </mat-menu>

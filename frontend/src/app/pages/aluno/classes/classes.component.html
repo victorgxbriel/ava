@@ -1,0 +1,12 @@
+<!-- Card de Minhas Classes -->
+<div class="bg-white shadow-lg rounded-lg p-6 w-full">
+    <p class="text-lg font-semibold mb-4">Minhas classes</p>
+    <div class="flex flex-row items-center w-full space-x-6">
+        @for (classe of classes; track $index) {
+          <app-classe-summary 
+            [disciplina]="classe.disciplina.nome" 
+            [nota]="classe.nota" 
+            [situacao]="classe.situacao" />
+        }
+    </div>
+</div>

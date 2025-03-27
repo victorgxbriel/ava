@@ -1,0 +1,17 @@
+<div class="flex flex-row justify-between items-center pr-4">
+  <h2 mat-dialog-title>{{ data.title }}</h2>
+  <button mat-button class="items-center" mat-dialog-close>
+    <mat-icon>close</mat-icon>
+  </button>
+</div>
+@if(data.message) {
+  <mat-dialog-content>{{ data.message }}</mat-dialog-content>
+}
+<mat-dialog-actions>
+  @if (data.cancelButton ?? true) {
+    <button mat-button [mat-dialog-close]="{sucess: true}" >{{data.cancelLabel ?? "Cancelar"}}</button>
+  }
+  @if (data.confirmButton ?? true) {
+    <button mat-raised-button color="primary" [mat-dialog-close]="{sucess: false}" >{{data.confirmLabel ?? "Confirmar" }}</button>
+  }
+</mat-dialog-actions>

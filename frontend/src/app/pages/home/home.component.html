@@ -1,0 +1,24 @@
+<main class=" min-h-screen flex flex-col">
+    <app-navbar class="navbar" />
+    
+    <!-- Conteúdo Principal -->
+    <div class="content flex-1 flex flex-col justify-center items-center space-y-6 py-12 px-6">
+        <h1 class="text-3xl font-semibold text-center text-[var(--color-text)]">Bem-vindo ao Sistema</h1>
+        <p class="text-lg text-center text-gray-600">Escolha uma opção para começar</p>
+      
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full">
+        <a mat-fab extended routerLink="matricula" class="custom-button mat-button w-full py-4 text-lg font-semibold bg-teal-500 text-white hover:bg-teal-600 transition-all">
+          Matrícula
+        </a>
+        <a mat-fab extended routerLink="login" class=" custom-button w-full py-4 text-lg font-semibold bg-blue-500 text-white hover:bg-blue-600 transition-all">
+          Login
+        </a>
+        <a mat-fab extended routerLink="administracao" class=" custom-button w-full py-4 text-lg font-semibold bg-purple-500 text-white hover:bg-purple-600 transition-all">
+          Administrador
+        </a>
+      </div>
+    </div>
+    
+    <app-footer class="footer" />
+  </main>
+  

@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+.custom-button {
+  background-color: var(--color-victoria-500) !important;
+  color: white !important; 
+  transition: background-color 0.3s ease-in-out, color 0.2s ease-in-out;
+}
+.custom-button:hover {
+  background-color: var(--color-victoria-600) !important; 
+  color: #e0e0e0 !important;
+}
+
+.card-classe-summary {
+  background-color: var(--color-victoria-100) !important;
+}
+
+.button-curso-summary {
+  background-color: var(--color-victoria-600) !important;
+}
+
+@layer utilities {
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+  
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE e Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+  }
+  :root {
+    --color-victoria-50: #f2f4fc;
+    --color-victoria-100: #e2e7f7;
+    --color-victoria-200: #ccd4f1;
+    --color-victoria-300: #a9b9e7;
+    --color-victoria-400: #8095da; 
+    --color-victoria-500: #6274cf;
+    --color-victoria-600: #4f5bc1;
+    --color-victoria-700: #444ab1;
+    --color-victoria-800: #3e4094;/* Principal */
+    --color-victoria-900: #353873;
+    --color-victoria-950: #242547;
+
+      --color-turquoise-blue-50: #eafffe;
+      --color-turquoise-blue-100: #cbffff;
+      --color-turquoise-blue-200: #9efcff;
+      --color-turquoise-blue-300: #5bf6ff;
+      --color-turquoise-blue-400: #0fe7ff;/* Principal */
+      --color-turquoise-blue-500: #00c9e5;
+      --color-turquoise-blue-600: #00a0c0;
+      --color-turquoise-blue-700: #037f9b;
+      --color-turquoise-blue-800: #0d667d; 
+      --color-turquoise-blue-900: #105469;
+      --color-turquoise-blue-950: #033749;     
+
+      --color-gray-50: #f9fafb;
+      --color-gray-100: #f3f4f6;
+      --color-gray-200: #e5e7eb;
+      --color-gray-300: #d1d5db;
+      --color-gray-400: #9ca3af;
+      --color-gray-500: #6b7280;
+      --color-gray-600: #4b5563;
+      --color-gray-700: #374151;
+      --color-gray-800: #1f2937;
+      --color-gray-900: #111827;
+      --color-gray-950: #030712;      
+
+      --color-text: #00202e;
+      /*
+      @include mat.card-overrides((
+      elevated-container-color: var(--color-victoria-50),
+    ));*/
+
+
+    }
+
+.navbar {
+  @apply w-full;
+}
+
+.footer{
+  @apply w-full;
+}
+
+main {
+  @apply flex flex-col items-center min-h-screen min-w-screen;
+}
+
+.content {
+  @apply flex-1 flex items-center justify-center w-full;
+}
+
+body{
+  @apply bg-gray-100
+}
